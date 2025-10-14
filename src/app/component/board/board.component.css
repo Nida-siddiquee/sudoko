@@ -2,8 +2,14 @@
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-template-rows: repeat(9, 1fr);
-  width: 360px;
-  height: 360px;
+  padding: 2px;
   border: 2px solid #333;
   margin: 20px auto;
+  gap:2px;
+}
+
+.row {
+  display: contents;
+  border-bottom: 1px solid #eee;
+  gap:2px
 }

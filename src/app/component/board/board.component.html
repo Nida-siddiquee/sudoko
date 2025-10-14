@@ -1,11 +1,16 @@
 <div class="board">
-  @for (row of board; track $index ) {
+  @for (row of board; track $index; let rowIndex = $index) {
     <div class="row">
-      @for (cell of row; track $index ) {
-        <app-cell
+      @for (cell of row; track $index; let colIndex = $index) {
+          <app-cell
           [value]="cell"
-          (userInput)="onCellInput(0, cell, $event)">
+          [isInvalid]="!boardService.validateInput(rowIndex, colIndex, cell.toString()).valid"
+          (userInput)="onCellInput(rowIndex, colIndex, $event)"
+          >
+          
         </app-cell>
+       
+       
       }
     </div>
   }

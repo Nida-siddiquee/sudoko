@@ -45,5 +45,6 @@ Thumbs.db
 
 .angular
 
-
+package-lock.json
+pnpm-lock.yaml
 errors.log

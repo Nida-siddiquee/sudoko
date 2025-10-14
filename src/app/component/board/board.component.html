@@ -1,0 +1,12 @@
+<div class="board">
+  @for (row of board; track $index ) {
+    <div class="row">
+      @for (cell of row; track $index ) {
+        <app-cell
+          [value]="cell"
+          (userInput)="onCellInput(0, cell, $event)">
+        </app-cell>
+      }
+    </div>
+  }
+</div>

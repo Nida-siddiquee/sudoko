@@ -1,2 +1,25 @@
-<app-nx-welcome></app-nx-welcome>
+<main>
+    <div class="flex justify-between flex-col items-center w-full  p-4">
+        <h1 class="text-4xl ">Welcome to Sudoko!</h1>
+        <app-board></app-board>
+        <div class="mt-4">
+            <!-- <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            (click)="()=>{}">
+            New Game
+          </button> -->
+            <div> 
+                <h1>💡 Tips:</h1>
+                <ul>
+                    <li>Use numbers 1-9 to fill the cells</li>
+                    <li>Each number can only appear once per row, column, and 3×3 box</li>
+                    <li>Click a cell to highlight its row, column, and 3×3 box</li>
+                    <li>Invalid numbers appear in red</li>
+                    <li>Gray cells contain the original puzzle clues</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</main>
 <router-outlet></router-outlet>

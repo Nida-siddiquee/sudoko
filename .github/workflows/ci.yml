@@ -25,9 +25,9 @@ jobs:
           node-version: 20
           cache: 'pnpm' # ✅ use pnpm cache instead of npm
 
-      # ✅ Install pnpm
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       # ✅ Install dependencies without lockfile
       - name: Install dependencies

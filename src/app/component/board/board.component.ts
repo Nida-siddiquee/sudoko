@@ -17,14 +17,13 @@ export class BoardComponent implements OnInit {
     console.log(this.board);
   }
 
-onCellInput(rowIndex: number, colIndex: number, input: string) {
+ onCellInput(rowIndex: number, colIndex: number, input: string) {
   const { valid, value } = this.boardService.validateInput(rowIndex, colIndex, input);
   const boardValue = valid ? value : null;
 
   this.boardService.updateCell(rowIndex, colIndex, boardValue || 0);
 
-  // set invalid flag only on that cell
-  const cellComponent = document.querySelectorAll('app-cell')[rowIndex * 9 + colIndex] as any;
+  const cellComponent = document.querySelectorAll('app-cell')[rowIndex * 9 + colIndex] as HTMLElement & { isInvalid?: boolean };
   if (cellComponent) {
     cellComponent.isInvalid = !valid;
   }

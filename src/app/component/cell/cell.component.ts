@@ -12,7 +12,8 @@ export class CellComponent {
   @Input() value: number | null = null;
   @Output() userInput = new EventEmitter<string>();
   @Input() isInvalid = false;
-
+  @Input() rowIndex!: number;
+  @Input() colIndex!: number;
 
   onInput(event: Event) {
     const input = (event.target as HTMLInputElement).value;

@@ -1,16 +1,16 @@
-<div class="board">
+<div
+  class="grid grid-cols-9 grid-rows-9 p-1 border-2 border-[#3a291c] mx-auto my-5  "
+>
   @for (row of board; track $index; let rowIndex = $index) {
-    <div class="row">
+    <div class="contents border-b-2 border-[#3a291c]">
       @for (cell of row; track $index; let colIndex = $index) {
-          <app-cell
+        <app-cell
           [value]="cell"
+          [rowIndex]="rowIndex"
+          [colIndex]="colIndex"
           [isInvalid]="!boardService.validateInput(rowIndex, colIndex, cell.toString()).valid"
-          (userInput)="onCellInput(rowIndex, colIndex, $event)"
-          >
-          
+          (userInput)="onCellInput(rowIndex, colIndex, $event)">
         </app-cell>
-       
-       
       }
     </div>
   }

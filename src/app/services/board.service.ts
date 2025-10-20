@@ -5,16 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class BoardService {
   board: number[][] = [];
-  constructor() {
-    this.generatePuzzle('hard');
-  }
-  levels = { easy: 30, medium: 40, hard: 50 ,expert: 60,master: 65};
+  levels = { easy: 30, medium: 40, hard: 50, expert: 60, master: 65 };
   generatePuzzle(level: string) {
     this.board = Array.from({ length: 9 }, () => Array(9).fill(0));
     this.fillBoard();
     this.removeCells(this.levels[level]);
   }
-updateCell(row: number, col: number, value: number) {
+  updateCell(row: number, col: number, value: number) {
     if (value >= 0 && value <= 9) {
       this.board[row][col] = value;
     }
@@ -45,7 +42,6 @@ updateCell(row: number, col: number, value: number) {
     return { valid: false, value: null };
   }
 
-  
   private fillBoard(): boolean {
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {
@@ -102,5 +98,4 @@ updateCell(row: number, col: number, value: number) {
       }
     }
   }
-  
 }

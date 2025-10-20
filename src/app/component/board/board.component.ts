@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CellComponent } from '../cell/cell.component';
 import { CommonModule } from '@angular/common';
 import { BoardService } from '../../services/board.service';
@@ -9,10 +9,12 @@ import { BoardService } from '../../services/board.service';
   styleUrl: './board.component.css',
 })
 export class BoardComponent implements OnInit {
+  @Input() level: string | null = null;
   board: number[][] = [];
   boardService = inject(BoardService);
   ngOnInit() {
     // Initialize a 9×9 board (81 cells)
+    this.boardService.generatePuzzle(this.level);
     this.board = this.boardService.getBoard();
     console.log(this.board);
   }

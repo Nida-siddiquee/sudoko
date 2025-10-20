@@ -6,13 +6,13 @@ import { Injectable } from '@angular/core';
 export class BoardService {
   board: number[][] = [];
   constructor() {
-    this.generatePuzzle();
+    this.generatePuzzle('hard');
   }
-
-  generatePuzzle() {
+  levels = { easy: 30, medium: 40, hard: 50 ,expert: 60,master: 65};
+  generatePuzzle(level: string) {
     this.board = Array.from({ length: 9 }, () => Array(9).fill(0));
     this.fillBoard();
-    this.removeCells(40);
+    this.removeCells(this.levels[level]);
   }
 updateCell(row: number, col: number, value: number) {
     if (value >= 0 && value <= 9) {

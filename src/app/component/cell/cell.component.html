@@ -4,7 +4,7 @@
   [value]="value || ''"
   (input)="onInput($event)"
   [readonly]="!!value"
-  class="w-10 h-10 text-center text-lg border border-[#6F4E37] focus:outline-none focus:ring-1 focus:ring-[#6F4E37]"
+  class="w-20 h-20 text-center text-4xl border border-[#6F4E37] focus:outline-none focus:ring-1 focus:ring-[#6F4E37]"
   [ngClass]="[
     value ? 'bg-[#f6e3d3]' : 'bg-[#fff3e9]/50',
     colIndex % 3 === 2 ? 'border-r-2 !border-r-[#6F4E37]' : '',

@@ -2,7 +2,7 @@
   class="grid grid-cols-9 grid-rows-9 p-1 border-2 border-[#3a291c] mx-auto my-5  "
 >
   @for (row of board; track $index; let rowIndex = $index) {
-    <div class="contents border-b-2 border-[#3a291c]">
+    <div class="contents border-b-2 border-[#3a291c9d]">
       @for (cell of row; track $index; let colIndex = $index) {
         <app-cell
           [value]="cell"

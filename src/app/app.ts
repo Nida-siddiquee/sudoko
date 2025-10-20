@@ -9,4 +9,5 @@ import { BoardComponent } from './component/board/board.component';
 })
 export class App {
   protected title = 'sudoko';
+  
 }

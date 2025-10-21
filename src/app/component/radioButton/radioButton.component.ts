@@ -14,7 +14,6 @@ export class RadioButton {
    @Output() level = new EventEmitter<string>();
   onSubmit() {
     const selectedLevel = this.form.get('level')?.value;
-    console.log('Selected level:', selectedLevel);
     this.level.emit(selectedLevel);
   }
 }

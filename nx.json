@@ -68,7 +68,6 @@
     "@nx/angular:component": {
       "style": "css"
     }
-  
   },
   "defaultProject": "sudoko"
 }

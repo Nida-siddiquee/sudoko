@@ -6,12 +6,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   imports: [CommonModule],
   standalone: true,
   templateUrl: './cell.component.html',
-  styleUrl: './cell.component.css',
 })
 export class CellComponent {
   @Input() value: number | null = null;
   @Output() userInput = new EventEmitter<string>();
-  @Input() isInvalid = false;
+  
   @Input() rowIndex!: number;
   @Input() colIndex!: number;
 

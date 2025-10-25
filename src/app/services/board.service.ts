@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class BoardService {
   board: number[][] = [];
+  initialBoard: number[][] = [];
   levels = { easy: 30, medium: 40, hard: 50, expert: 60, master: 65 };
   generatePuzzle(level: string) {
     this.board = Array.from({ length: 9 }, () => Array(9).fill(0));
@@ -17,6 +18,7 @@ export class BoardService {
     }
   }
   getBoard(): number[][] {
+    this.initialBoard = this.board.map(row => [...row]);
     return this.board;
   }
 
@@ -26,7 +28,13 @@ export class BoardService {
     }
     return this.isSafe(row, col, value);
   }
-
+  resetBoard() {
+    this.board = this.initialBoard.map(row => [...row]);
+    return this.board;
+  }
+  solveBoard() {
+    this.fillBoard();
+  }
   validateInput(
     row: number,
     col: number,
@@ -41,7 +49,9 @@ export class BoardService {
     }
     return { valid: false, value: null };
   }
-
+  onNumberSelected(number: number) {
+    console.log(`Number ${number} selected in service`);
+  }
   private fillBoard(): boolean {
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {

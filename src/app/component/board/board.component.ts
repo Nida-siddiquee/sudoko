@@ -26,7 +26,7 @@ export class BoardComponent implements OnInit {
     console.log(this.board);
   }
   resetBoard() {
-  this.boardService.resetBoard();
+    this.boardService.resetBoard();
     this.board = this.boardService.getBoard();
     console.log(this.board);
   }
@@ -47,7 +47,16 @@ export class BoardComponent implements OnInit {
       return;
     const r = this.selectedRowIndex;
     const c = this.selectedColIndex;
-
+    if (this.boardService.board[r][c]) {
+      const { valid } = this.boardService.validateInput(
+        r,
+        c,
+        this.boardService.board[r][c].toString()
+      );
+      if (valid) {
+        return;
+      }
+    }
     // Always update the cell with the number
     this.boardService.updateCell(r, c, number);
 

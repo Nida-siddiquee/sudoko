@@ -1,46 +1,61 @@
-<div>
+<div class="flex flex-col items-center justify-center w-full px-4 py-6 space-y-6">
+  <!-- Level Header -->
   <div>
-    <h2 class="text-2xl text-[#3a291c] mb-2 text-center">Level: {{ level | titlecase }}</h2>
+    <h2 class="text-2xl font-semibold text-[#3a291c] mb-2 text-center">
+      Level: {{ level | titlecase }}
+    </h2>
   </div>
-  <div class="grid grid-cols-2 justify-between align-baseline items-center">
-    <div class="grid grid-cols-9 grid-rows-9  max-w-content border-2 border-[#6F4E37] ">
+
+  <!-- Main Grid Wrapper -->
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 w-full max-w-8xl items-start xl:items-center">
+    <!-- Sudoku Board -->
+    <div
+      class="grid grid-cols-9 grid-rows-9 border-2 border-[#6F4E37]  w-full max-w-[360px] sm:max-w-[420px] md:max-w-[600px] "
+    >
       @for (row of board; track $index; let rowIndex = $index) {
-      <div class="contents border-b-2 border-[#6F4E37]">
+      <div class="contents">
         @for (cell of row; track $index; let colIndex = $index) {
-        <app-cell 
-          [value]="cell" 
-          [rowIndex]="rowIndex" 
+        <app-cell
+          [value]="cell"
+          [rowIndex]="rowIndex"
           [colIndex]="colIndex"
           [isInvalid]="invalidCells[rowIndex][colIndex]"
           (userInput)="onCellInput(rowIndex, colIndex, $event)"
           (click)="selectCell(rowIndex, colIndex)"
-          >
-          
-        </app-cell>
+        ></app-cell>
         }
       </div>
       }
-
     </div>
-    <div class="flex flex-col justify-center items-center">
-      <div class="flex w-sm gap-2 flex-wrap justify-center items-center">
-        @for( number of numbers;track $index) {
-        <app-button text="{{ number }}" (click)="onNumberSelected(number)"></app-button>
+
+    <!-- Controls -->
+    <div class="flex flex-col justify-center items-center w-full space-y-6">
+      <!-- Number Buttons -->
+      <div class="flex flex-wrap justify-center gap-3 max-w-[300px]">
+        @for (number of numbers; track $index) {
+        <app-button
+          text="{{ number }}"
+          (click)="onNumberSelected(number)"
+        ></app-button>
         }
+        <app-button text="X" (click)="onNumberSelected(0)"></app-button>
       </div>
-      <div class="flex justify-center space-x-4 m-4">
-        <button class="bg-[#6F4E37] text-white px-4 py-2  hover:bg-[#5a3e2c]" (click)="resetBoard()">
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <button
+          class="bg-[#6F4E37] text-white px-5 py-2 rounded-lg transition-colors duration-200 hover:bg-[#5a3e2c] w-28 text-center"
+          (click)="resetBoard()"
+        >
           Reset
         </button>
-        <button class="bg-[#6F4E37] text-white px-4 py-2  hover:bg-[#5a3e2c]" (click)="solveBoard()">
+        <button
+          class="bg-[#6F4E37] text-white px-5 py-2 rounded-lg transition-colors duration-200 hover:bg-[#5a3e2c] w-28 text-center"
+          (click)="solveBoard()"
+        >
           Solve
         </button>
       </div>
-
     </div>
-
   </div>
-
-
-
 </div>

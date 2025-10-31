@@ -7,15 +7,14 @@ export class BoardService {
   board: number[][] = [];
   initialBoard: number[][] = [];
   solutionBoard: number[][] = [];
-
+  
   levels = { easy: 30, medium: 40, hard: 50, expert: 60, master: 65 };
-
+  
   generatePuzzle(level: string) {
     this.board = Array.from({ length: 9 }, () => Array(9).fill(0));
     this.fillBoard();
     this.solutionBoard = this.board.map((row) => [...row]);
     this.removeCells(this.levels[level]);
-    this.initialBoard = this.board.map((row) => [...row]);
   }
   updateCell(row: number, col: number, value: number) {
     if (value >= 0 && value <= 9) {
@@ -23,8 +22,7 @@ export class BoardService {
     }
   }
   getBoard(): number[][] {
-    // this.initialBoard = this.board.map((row) => [...row]);
-    console.log('Initial Board Set:', this.initialBoard, this.board);
+    this.initialBoard = this.board.map((row) => [...row]);
     return this.board;
   }
 
@@ -32,13 +30,13 @@ export class BoardService {
     if (value < 1 || value > 9) {
       return false;
     }
-    console.log(`isValidInput ${value} at (${row}, ${col})`);
+    console.log(`Validating input ${value} at (${row}, ${col})`);
     return this.isSafe(row, col, value);
   }
 
   resetBoard() {
-    console.log('Resetting board to initial state:', this.initialBoard);
-    return (this.board = this.initialBoard.map((row) => [...row]));
+    this.board = this.initialBoard.map((row) => [...row]);
+    return this.board;
   }
 
   solveBoard() {
@@ -51,12 +49,10 @@ export class BoardService {
     input: string
   ): { valid: boolean; value: number | null } {
     if (!/^[1-9]$/.test(input)) {
-      console.log(`Invalid input ${input} at (${row}, ${col}) in service`);
       return { valid: false, value: null };
     }
     const value = Number(input);
-    console.log(`Validating input ${this.isValidInput(row, col, value)},${value} in service`);
-
+    console.log(`Validating input ${value} at (${row}, ${col}) in service`);
     if (this.isValidInput(row, col, value)) {
       return { valid: true, value };
     }
@@ -91,30 +87,21 @@ export class BoardService {
   }
 
   private isSafe(row: number, col: number, num: number): boolean {
-  // Check row and column excluding current cell
-  for (let i = 0; i < 9; i++) {
-    if ((this.board[row][i] === num && i !== col) ||
-        (this.board[i][col] === num && i !== row)) {
-      return false;
-    }
-  }
-
-  const startRow = row - (row % 3);
-  const startCol = col - (col % 3);
-
-  // Check the 3x3 box
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      const r = startRow + i;
-      const c = startCol + j;
-      if (this.board[r][c] === num && (r !== row || c !== col)) {
+    for (let i = 0; i < 9; i++) {
+      if (this.board[row][i] === num || this.board[i][col] === num)
         return false;
+    }
+    const startRow = row - (row % 3);
+    const startCol = col - (col % 3);
+
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (this.board[startRow + i][startCol + j] === num) return false;
       }
     }
+    return true;
   }
 
-  return true;
-}
   private shuffle(arr: number[]): number[] {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

@@ -1,17 +1,46 @@
-<div
-  class="grid grid-cols-9 grid-rows-9 p-1 border-2 border-[#3a291c] mx-auto my-5  "
->
-  @for (row of board; track $index; let rowIndex = $index) {
-    <div class="contents border-b-2 border-[#3a291c9d]">
-      @for (cell of row; track $index; let colIndex = $index) {
-        <app-cell
-          [value]="cell"
-          [rowIndex]="rowIndex"
+<div>
+  <div>
+    <h2 class="text-2xl text-[#3a291c] mb-2 text-center">Level: {{ level | titlecase }}</h2>
+  </div>
+  <div class="grid grid-cols-2 justify-between align-baseline items-center">
+    <div class="grid grid-cols-9 grid-rows-9  max-w-content border-2 border-[#6F4E37] ">
+      @for (row of board; track $index; let rowIndex = $index) {
+      <div class="contents border-b-2 border-[#6F4E37]">
+        @for (cell of row; track $index; let colIndex = $index) {
+        <app-cell 
+          [value]="cell" 
+          [rowIndex]="rowIndex" 
           [colIndex]="colIndex"
-          [isInvalid]="!boardService.validateInput(rowIndex, colIndex, cell.toString()).valid"
-          (userInput)="onCellInput(rowIndex, colIndex, $event)">
+          [isInvalid]="invalidCells[rowIndex][colIndex]"
+          (userInput)="onCellInput(rowIndex, colIndex, $event)"
+          (click)="selectCell(rowIndex, colIndex)"
+          >
+          
         </app-cell>
+        }
+      </div>
       }
+
     </div>
-  }
+    <div class="flex flex-col justify-center items-center">
+      <div class="flex w-sm gap-2 flex-wrap justify-center items-center">
+        @for( number of numbers;track $index) {
+        <app-button text="{{ number }}" (click)="onNumberSelected(number)"></app-button>
+        }
+      </div>
+      <div class="flex justify-center space-x-4 m-4">
+        <button class="bg-[#6F4E37] text-white px-4 py-2  hover:bg-[#5a3e2c]" (click)="resetBoard()">
+          Reset
+        </button>
+        <button class="bg-[#6F4E37] text-white px-4 py-2  hover:bg-[#5a3e2c]" (click)="solveBoard()">
+          Solve
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
 </div>

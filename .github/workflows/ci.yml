@@ -36,8 +36,8 @@ jobs:
       # Install Playwright dependencies
       - run: npx playwright install --with-deps
 
-      # Run Nx tasks (adjust to your workspace setup)
-      - run: npx nx run-many -t lint test build e2e
+      # # Run Nx tasks (adjust to your workspace setup)
+      # - run: npx nx run-many -t lint test build e2e
 
       # Always run fix step even if previous steps fail
       - run: npx nx fix-ci

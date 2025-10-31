@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+body {
+    background-color: #fff7f0;
+}
+input[type="radio"] {
+    accent-color: #6F4E37;
+    background-color: #fff7f0;
+    border: 1px solid #6F4E37;
+
+}

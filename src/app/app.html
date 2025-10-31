@@ -1,21 +1,12 @@
-<main class="bg-[#fff3e9]/10 h-full">
+<main class="bg-[#fff3e9]/40 h-full">
     <div class="flex justify-between flex-col items-center w-full h-full  p-4">
-        <h1 class="text-4xl ">Welcome to Sudoko!</h1>
-        
-        <app-board></app-board>
-        <div class="mt-4">
-            <div>
-                <h1>💡 Tips:</h1>
-                <ol>
-                    <li>Use numbers 1-9 to fill the cells</li>
-                    <li>Each number can only appear once per row, column, and 3×3 box</li>
-                    <li>Click a cell to highlight its row, column, and 3×3 box</li>
-                    <li>Invalid numbers appear in red</li>
-                    <li>Gray cells contain the original puzzle clues</li>
-                </ol>
-
-            </div>
-        </div>
+        <h1 class="text-4xl text-[#3a291c]">Welcome to Sudoko!</h1>
+        @if (!level) {
+        <app-radio-button (level)="onLevelSelected($event)"></app-radio-button>
+        }
+        @else {
+        <app-board [level]="level"></app-board>
+        }
     </div>
 </main>
 <router-outlet></router-outlet>

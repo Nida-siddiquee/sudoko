@@ -1,0 +1,41 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-4">
+  <label for="level" class="text-[#3a291c] text-2xl font-medium  ">Select Difficulty Level:</label><br />
+  <div
+    class="items-center grid grid-cols-2 gap-2 w-lg  font-medium text-[#3a291c] text-2xl  gap-y-2 ">
+    <div class="flex items-center w-full ps-4 border-2 border-[#6F4E37]  ">
+      <input type="radio"
+        class="w-4 h-4 text-[#3a291c] bg-[#fff7f0]  "
+        formControlName="level" value="easy" id="level-1" />
+      <label for="level-1" class="w-full py-4 ms-2  font-medium text-[#3a291c] text-2xl "> Easy</label>
+    </div>
+    <div class="flex items-center w-full ps-4 border-2 border-[#6F4E37]  ">
+      <input type="radio"
+        class="w-4 h-4 text-[#3a291c] bg-[#fff7f0] "
+        formControlName="level" value="medium" id="level-2" />
+      <label for="level-2" class="w-full py-4 ms-2  font-medium text-[#3a291c] text-2xl ">Medium</label>
+    </div>
+    <div class="flex items-center w-full ps-4 border-2 border-[#6F4E37]  ">
+
+      <input type="radio"
+        class="w-4 h-4 text-[#3a291c] bg-[#fff7f0] "
+        formControlName="level" value="hard" id="level-3" />
+      <label for="level-3" class="w-full py-4 ms-2  font-medium text-[#3a291c] text-2xl ">Hard</label>
+    </div>
+    <div class="flex items-center w-full ps-4 border-2 border-[#6F4E37]  ">
+
+      <input type="radio"
+        class="w-4 h-4 text-[#3a291c] bg-[#fff7f0] "
+        formControlName="level" value="expert" id="level-4" />
+      <label for="level-4" class="w-full py-4 ms-2  font-medium text-[#3a291c] text-2xl ">Expert</label>
+    </div>
+    <div class="flex items-center w-full ps-4 border-2 border-[#6F4E37]  ">
+
+      <input type="radio"
+        class="w-4 h-4 text-[#3a291c] bg-[#fff7f0] "
+        formControlName="level" value="master" id="level-5" />
+      <label for="level-5" class="w-full py-4 ms-2  font-medium text-[#3a291c] text-2xl ">Master</label>
+    </div>
+  </div>
+  <button class="mt-4 px-4 py-2 text-sm font-medium text-white bg-[#3a291c] border-2 border-[#3a291c] rounded-xs hover:bg-[#3a291c]/90 focus:outline-none focus:ring-2 focus:ring-[#3a291c]/70 focus:ring-offset-2" type="submit">Start Game</button>
+
+</form>

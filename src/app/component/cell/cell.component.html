@@ -3,8 +3,9 @@
   maxlength="1" 
   [value]="value || ''" 
   (input)="onInput($event)" 
-  [readonly]="!!value"
-  class="w-18 h-18 caret-transparent text-center text-4xl text-[#6F4E37]  font-medium border border-[#6F4E37] focus:outline-none focus:border-4 focus:ring-[#6F4E37]"
+    [readonly]="!!value"
+  class="w-18 h-18 caret-transparent text-center text-4xl text-[#6F4E37] font-medium border border-[#6F4E37] focus:outline-none focus:border-4 focus:ring-[#6F4E37]"
+  [class.bg-red-200]="isInvalid"
   [ngClass]="[
     value ? 'bg-[#f6e3d3]' : 'bg-[#fff3e9]/50',
     colIndex % 3 === 2 ? 'border-r-2 border-r-[#6F4E37]' : '',

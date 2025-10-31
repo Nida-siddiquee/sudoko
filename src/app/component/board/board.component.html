@@ -11,7 +11,9 @@
           [value]="cell" 
           [rowIndex]="rowIndex" 
           [colIndex]="colIndex"
+          [isInvalid]="invalidCells[rowIndex][colIndex]"
           (userInput)="onCellInput(rowIndex, colIndex, $event)"
+          (click)="selectCell(rowIndex, colIndex)"
           >
           
         </app-cell>

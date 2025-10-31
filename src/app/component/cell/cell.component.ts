@@ -9,6 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class CellComponent {
   @Input() value: number | null = null;
+  @Input() isInvalid = false;
   @Output() userInput = new EventEmitter<string>();
   
   @Input() rowIndex!: number;
@@ -16,6 +17,11 @@ export class CellComponent {
 
   onInput(event: Event) {
     const input = (event.target as HTMLInputElement).value;
-    this.userInput.emit(input);
+    if (input === '' || /^[1-9]$/.test(input)) {
+      this.userInput.emit(input);
+    } else {
+      // Reset invalid input
+      (event.target as HTMLInputElement).value = this.value?.toString() || '';
+    }
   }
 }

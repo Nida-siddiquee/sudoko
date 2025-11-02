@@ -11,7 +11,7 @@ export class CellComponent {
   @Input() value: number | null = null;
   @Input() isInvalid = false;
   @Output() userInput = new EventEmitter<string>();
-  
+  @Input() highlightedCell: { row: number; col: number } | null = null;
   @Input() rowIndex!: number;
   @Input() colIndex!: number;
 

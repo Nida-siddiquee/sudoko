@@ -9,7 +9,9 @@ export class BoardService {
   solutionBoard: number[][] = [];
 
   levels = { easy: 30, medium: 40, hard: 50, expert: 60, master: 65 };
-
+isBoardComplete(): boolean {
+  return this.board.every(row => row.every(cell => cell !== 0));
+}
   generatePuzzle(level: string) {
     this.board = Array.from({ length: 9 }, () => Array(9).fill(0));
     this.fillBoard();
@@ -55,7 +57,13 @@ export class BoardService {
       return { valid: false, value: null };
     }
     const value = Number(input);
-    console.log(`Validating input ${this.isValidInput(row, col, value)},${value} in service`);
+    console.log(
+      `Validating input ${this.isValidInput(
+        row,
+        col,
+        value
+      )},${value} in service`
+    );
 
     if (this.isValidInput(row, col, value)) {
       return { valid: true, value };
@@ -66,6 +74,42 @@ export class BoardService {
   onNumberSelected(number: number) {
     console.log(`Number ${number} selected in service`);
   }
+
+  onHintRequested(): { row: number; col: number; value: number; reason: string } | null {
+  console.log('Hint requested in service');
+
+  const emptyCells: { row: number; col: number }[] = [];
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      if (this.board[row][col] === 0) {
+        emptyCells.push({ row, col });
+      }
+    }
+  }
+
+  if (emptyCells.length === 0) {
+    console.log('No empty cells left.');
+    return null;
+  }
+
+  const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+  const value = this.solutionBoard[row][col];
+  this.board[row][col] = value;
+
+  // Pick a random educational reason (optional)
+  const reasons = [
+    'This number uniquely fits in its 3×3 box.',
+    'No other number fits here without breaking Sudoku rules.',
+    'This cell was deduced from its row and column constraints.',
+    'Only this value keeps the board solvable at this stage.'
+  ];
+  const reason = reasons[Math.floor(Math.random() * reasons.length)];
+
+  console.log(`Hint: Placed ${value} at (${row}, ${col}). Reason: ${reason}`);
+
+  return { row, col, value, reason };
+}
+
 
   private fillBoard(): boolean {
     for (let row = 0; row < 9; row++) {
@@ -91,30 +135,32 @@ export class BoardService {
   }
 
   private isSafe(row: number, col: number, num: number): boolean {
-  // Check row and column excluding current cell
-  for (let i = 0; i < 9; i++) {
-    if ((this.board[row][i] === num && i !== col) ||
-        (this.board[i][col] === num && i !== row)) {
-      return false;
-    }
-  }
-
-  const startRow = row - (row % 3);
-  const startCol = col - (col % 3);
-
-  // Check the 3x3 box
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      const r = startRow + i;
-      const c = startCol + j;
-      if (this.board[r][c] === num && (r !== row || c !== col)) {
+    // Check row and column excluding current cell
+    for (let i = 0; i < 9; i++) {
+      if (
+        (this.board[row][i] === num && i !== col) ||
+        (this.board[i][col] === num && i !== row)
+      ) {
         return false;
       }
     }
-  }
 
-  return true;
-}
+    const startRow = row - (row % 3);
+    const startCol = col - (col % 3);
+
+    // Check the 3x3 box
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        const r = startRow + i;
+        const c = startCol + j;
+        if (this.board[r][c] === num && (r !== row || c !== col)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
   private shuffle(arr: number[]): number[] {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

@@ -7,6 +7,9 @@
          focus:outline-none focus:ring-2 focus:border-3 focus:ring-[#6F4E37]/70 focus:border-[#6F4E37]
          transition-all duration-150 ease-in-out
          select-none caret-transparent rounded-sm" [ngClass]="[
+           highlightedCell?.row === rowIndex && highlightedCell?.col === colIndex
+      ? 'bg-blue-200 animate-pulse ' : '',
+
     isInvalid && value ? 'bg-red-200 text-red-800 font-bold border-red-900' : '',
 
     value && !isInvalid ? 'bg-[#f6e3d3]' : 'bg-[#fff3e9]/60',

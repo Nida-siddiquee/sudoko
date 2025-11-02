@@ -3,6 +3,8 @@ import { CellComponent } from '../cell/cell.component';
 import { CommonModule } from '@angular/common';
 import { BoardService } from '../../services/board.service';
 import { Button } from '../button/button';
+import confetti from 'canvas-confetti';
+
 @Component({
   selector: 'app-board',
   imports: [CellComponent, CommonModule, Button],
@@ -36,6 +38,52 @@ export class BoardComponent implements OnInit {
     // Implement solve logic if needed
   }
 
+  hintMessage = '';
+highlightedCell: { row: number; col: number } | null = null;
+triggerConfetti() {
+  // Fire a short burst from multiple angles
+  const duration = 4000;
+  const end = Date.now() + duration;
+
+  const colors = ['#6F4E37', '#F6E3D3', '#FFF3E9', '#3A291C'];
+
+  (function frame() {
+    confetti({
+      particleCount: 4,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 },
+      colors,
+    });
+    confetti({
+      particleCount: 4,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 },
+      colors,
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
+
+  this.hintMessage = '🎉 Congratulations! You completed the puzzle!';
+}
+
+requestHint() {
+  const hint = this.boardService.onHintRequested();
+  if (!hint) {
+    this.hintMessage = 'No hints available — the board is already solved!';
+    return;
+  }
+
+  this.highlightedCell = { row: hint.row, col: hint.col };
+  this.hintMessage = `Hint: ${hint.reason}`;
+
+  // Remove highlight after 2 seconds
+  setTimeout(() => (this.highlightedCell = null), 2000);
+}
   // select a cell when clicked in the template
   selectCell(row: number, col: number) {
     this.selectedRowIndex = row;
@@ -47,6 +95,7 @@ export class BoardComponent implements OnInit {
       return;
     const r = this.selectedRowIndex;
     const c = this.selectedColIndex;
+
     if (this.boardService.board[r][c]) {
       const { valid } = this.boardService.validateInput(
         r,
@@ -62,7 +111,9 @@ export class BoardComponent implements OnInit {
 
     // Check if it's valid
     const { valid } = this.boardService.validateInput(r, c, number.toString());
-
+if (this.boardService.isBoardComplete() && valid) {
+    this.triggerConfetti();
+  }
     // Update invalid cells array
     this.invalidCells[r][c] = !valid;
 
@@ -89,7 +140,9 @@ export class BoardComponent implements OnInit {
 
     // Update invalid cells array
     this.invalidCells[rowIndex][colIndex] = !valid;
-
+  if (this.boardService.isBoardComplete() && valid) {
+    this.triggerConfetti();
+  }
     // Update the board display
     this.board = this.boardService.getBoard();
   }

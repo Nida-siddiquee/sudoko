@@ -15,4 +15,7 @@ export class App {
   onLevelSelected(selectedLevel: string) {
     this.level = selectedLevel;
   }
+   onChangeLevel() {
+    this.level = null; 
+  }
 }
